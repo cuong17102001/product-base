@@ -1,0 +1,69 @@
+services:
+  auth-api:
+    build:
+      context: .
+      dockerfile: AuthService/Dockerfile
+    ports:
+      - "5001:5001"
+    depends_on:
+      - rabbitmq
+      - elasticsearch
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - cuong1
+
+  post-api:
+    build:
+      context: .
+      dockerfile: UserService/Dockerfile
+    ports:
+      - "5002:5002"
+    depends_on:
+      - rabbitmq
+      - elasticsearch
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - cuong1
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - cuong1
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.1
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    networks:
+      - cuong1
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.12.1
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - cuong1
+
+networks:
+  cuong1:
+    driver: bridge
+
+volumes:
+  elasticsearch_data:
