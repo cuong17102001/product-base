@@ -1,31 +1,31 @@
 services:
-  auth-api:
-    build:
-      context: .
-      dockerfile: AuthService/Dockerfile
-    ports:
-      - "5001:5001"
-    depends_on:
-      - rabbitmq
-      - elasticsearch
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    networks:
-      - cuong1
-
-  post-api:
-    build:
-      context: .
-      dockerfile: UserService/Dockerfile
-    ports:
-      - "5002:5002"
-    depends_on:
-      - rabbitmq
-      - elasticsearch
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    networks:
-      - cuong1
+#  auth-api:
+#    build:
+#      context: .
+#      dockerfile: AuthService/Dockerfile
+#    ports:
+#      - "5001:5001"
+#    depends_on:
+#      - rabbitmq
+#      - elasticsearch
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#    networks:
+#      - cuong1
+#
+#  post-api:
+#    build:
+#      context: .
+#      dockerfile: UserService/Dockerfile
+#    ports:
+#      - "5002:5002"
+#    depends_on:
+#      - rabbitmq
+#      - elasticsearch
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#    networks:
+#      - cuong1
 
   rabbitmq:
     image: rabbitmq:3-management

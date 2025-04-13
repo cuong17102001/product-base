@@ -11,7 +11,7 @@ public static class AddConnectRabbitMqServer
         {
             x.UsingRabbitMq((ctx, cfg) =>
             {
-                cfg.Host("192.168.1.29", "/", h =>
+                cfg.Host("localhost", "/", h =>
                 {
                     h.Username("guest");
                     h.Password("guest");
