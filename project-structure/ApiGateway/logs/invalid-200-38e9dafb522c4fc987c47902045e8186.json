@@ -1,0 +1,4 @@
+{"index":{"_index":"logs-api-gateway","_id":"0_be353f0d-5a13-468a-b919-e1137b8d3849"}}
+{"@timestamp":"2025-04-25T20:37:54.4157200+07:00","level":"Information","messageTemplate":"Application is shutting down...","message":"Application is shutting down...","fields":{"SourceContext":"Microsoft.Hosting.Lifetime","ServiceName":"api-gateway","Environment":"Development","Application":"ApiGateway"}}
+{"index":{"_index":"logs-api-gateway","_id":"1_46dee7af-c93e-4604-ac23-a9094f075aff"}}
+{"@timestamp":"2025-04-25T20:37:54.4615940+07:00","level":"Information","messageTemplate":"Bus stopped: {HostAddress}","message":"Bus stopped: rabbitmq://localhost/","fields":{"HostAddress":"rabbitmq://localhost/","SourceContext":"MassTransit","ServiceName":"api-gateway","Environment":"Development","Application":"ApiGateway"}}

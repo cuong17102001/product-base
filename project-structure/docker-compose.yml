@@ -8,12 +8,13 @@ services:
 #    depends_on:
 #      - rabbitmq
 #      - elasticsearch
+#      - sqlserver
 #    environment:
 #      - ASPNETCORE_ENVIRONMENT=Development
 #    networks:
 #      - cuong1
 #
-#  post-api:
+#  user-api:
 #    build:
 #      context: .
 #      dockerfile: UserService/Dockerfile
@@ -22,6 +23,22 @@ services:
 #    depends_on:
 #      - rabbitmq
 #      - elasticsearch
+#      - sqlserver
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#    networks:
+#      - cuong1
+#
+#  todo-api:
+#    build:
+#      context: .
+#      dockerfile: TodoService/Dockerfile
+#    ports:
+#      - "5003:5003"
+#    depends_on:
+#      - rabbitmq
+#      - elasticsearch
+#      - sqlserver
 #    environment:
 #      - ASPNETCORE_ENVIRONMENT=Development
 #    networks:
@@ -61,9 +78,24 @@ services:
     networks:
       - cuong1
 
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=yourStrong(!)Password
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    networks:
+      - cuong1
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
 networks:
   cuong1:
     driver: bridge
 
 volumes:
   elasticsearch_data:
+  sqlserver_data:

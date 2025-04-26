@@ -1,33 +1,45 @@
-using Ocelot.DependencyInjection;
-using Ocelot.Middleware;
+using ApiGateway.Endpoints;
+using ApiGateway.Middleware;
+using ApiGateway.ServiceDiscovery;
+using Common.Logging;
+using EventBus.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
-builder.Services.AddOcelot();
+// Configure Serilog using common logging
+builder.Host.UseCommonSerilog(builder.Configuration["ServiceSettings:ServiceName"]);
 
-// Add services to the container.
-
+// Add services to the container
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add HttpClient
+builder.Services.AddHttpClient();
+
+// Add Service Discovery
+builder.Services.AddSingleton<ServiceDiscovery>();
+
+// Add RabbitMQ services
+builder.Services.AddRabbitMqServices();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseOcelot().Wait();
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
-app.MapControllers();
+// Use the Gateway Middleware
+app.UseMiddleware<GatewayMiddleware>();
+
+// Map endpoints
+app.MapUserEndpoints(builder.Configuration);
+app.MapTodoEndpoints(builder.Configuration);
 
 app.Run();

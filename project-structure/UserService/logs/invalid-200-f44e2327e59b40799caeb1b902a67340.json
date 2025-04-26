@@ -1,0 +1,4 @@
+{"index":{"_index":"logs-userservice-2025.04.25","_id":"0_7051d000-bdab-4390-add8-1c56834a1d41"}}
+{"@timestamp":"2025-04-25T22:36:51.9900260+07:00","level":"Information","messageTemplate":"Application is shutting down...","message":"Application is shutting down...","fields":{"SourceContext":"Microsoft.Hosting.Lifetime","ServiceName":"UserService","Environment":"Development","Application":"UserService"}}
+{"index":{"_index":"logs-userservice-2025.04.25","_id":"1_d6e7fe5d-bfaf-4387-a8a7-f03c91e6cad1"}}
+{"@timestamp":"2025-04-25T22:36:52.0496610+07:00","level":"Information","messageTemplate":"Bus stopped: {HostAddress}","message":"Bus stopped: rabbitmq://localhost/","fields":{"HostAddress":"rabbitmq://localhost/","SourceContext":"MassTransit","ServiceName":"UserService","Environment":"Development","Application":"UserService"}}
